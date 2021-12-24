@@ -1,0 +1,9 @@
+<style>.cls-1{fill:rgb(191,57,57);}.cls-2,.cls-3{fill:rgb(241,205,146);}.cls-3{font-size:100px;font-family:Impact;}</style>
+<rect class="cls-1" width="400" height="600"/>
+<text id="1" class="cls-2" transform="translate(100, 200)" font-size="30">✦</text>
+<text id="1" class="cls-2" transform="translate(100, 250)" font-size="30">✧</text>
+<text id="1" class="cls-2" transform="translate(100, 300)" font-size="30">✶</text>
+<text id="1" class="cls-2" transform="translate(100, 350)" font-size="30">✸</text>
+<text class="cls-3" transform="translate(150 340)">🎁</text>
+<text class="cls-3" transform="translate(150 340)">🧧</text>
+</svg>
