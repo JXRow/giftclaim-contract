@@ -22,7 +22,7 @@
 
 <img src="./doc/1640350200938.jpg">
 
-##### 其中Gift(1) #6，1表示这个红包有1个MATIC，6表示这个红包的tokenId是6
+##### 其中Gift(1) #6，1表示这个红包有1个MATIC，MATIC越多，图上的✨越多，🎁越大，6表示这个红包的tokenId是6，下面会用到tokenId
 ##### 打开 https://polygonscan.com/token/0xaf680053b13c494662b653f4d218b9423cce7902#writeContract
 
 <img src="./doc/WX20211224-210346.png">
