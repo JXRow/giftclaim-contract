@@ -707,10 +707,10 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
     using Strings for uint256;
 
     // Token name
-    string private _name;
+    string internal _name;
 
     // Token symbol
-    string private _symbol;
+    string internal _symbol;
 
     // Mapping from token ID to owner address
     mapping(uint256 => address) private _owners;
@@ -1362,6 +1362,8 @@ contract Words is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     address public uriContract;
 
+    address public feeTo;
+
     struct Info {
         uint256 starNum;
         string starIcon;
@@ -1382,8 +1384,17 @@ contract Words is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     }
 
-    function setUriContract(address newAddress) public {
+    function setName(string memory name_, string memory symbol_) public onlyOwner {
+        _name = name_;
+        _symbol = symbol_;
+    }
+
+    function setUriContract(address newAddress) public onlyOwner {
         uriContract = newAddress;
+    }
+
+    function setFeeTo(address newAddress) public onlyOwner {
+        feeTo = newAddress;
     }
 
     function tokenURI(uint256 tokenId) override public view returns (string memory) {
@@ -1391,7 +1402,8 @@ contract Words is ERC721Enumerable, ReentrancyGuard, Ownable {
     }
     
     function mint(string memory starIcon, string memory background, string memory icon, string memory words, string memory author, string memory desc) public payable nonReentrant {
-        payable(address(this)).transfer(msg.value);
+        require(msg.value >= 10**18, 'need more fee');
+        payable(feeTo).transfer(msg.value);
         
         minted++;
         uint256 starNum = msg.value / 10**18;
@@ -1405,7 +1417,7 @@ contract Words is ERC721Enumerable, ReentrancyGuard, Ownable {
         Info storage info = tokenIdToInfo[tokenId];
 
         require(msg.value >= 10**18 * info.starNum, 'need more fee');
-        payable(address(this)).transfer(msg.value);
+        payable(feeTo).transfer(msg.value);
         
         info.words = words;
         info.author = author;

@@ -21,6 +21,9 @@ describe('words-test', function () {
 		await tokenURI.deployed()
 
         await nft.setUriContract(tokenURI.address)
+        await nft.setFeeTo(accounts[1].address)
+
+        await nft.setName('只言片语', 'Words')
 
         console.log({name: await nft.name(), symbol: await nft.symbol()})
 	})
@@ -48,6 +51,8 @@ describe('words-test', function () {
         }
 
         console.log('totalSupply:', await nft.totalSupply())
+
+        console.log('eth:', d(await provider.getBalance(accounts[1].address), 18))
     
         console.log('')
     }
