@@ -22,14 +22,13 @@ describe('words-test', function () {
 
         await nft.setUriContract(tokenURI.address)
         await nft.setFeeTo(accounts[1].address)
-
         await nft.setName('只言片语', 'Words')
 
         console.log({name: await nft.name(), symbol: await nft.symbol()})
 	})
 
     it('mint', async function () {
-        await nft.mint('&#10022;', 'rgb(39,112,38)', '&#128757;', '为自己的投资留一辆电动车', '外卖币哥', 'Words is opensource and free.', {value: m(10, 18)})
+        await nft.mint('&#10022;', 'rgb(39,112,38)', '&#128757;', '为自己的投资留一辆电动车', '外卖币哥', 'Words is opensource and free.', {value: m(0, 18)})
         await print()
 	})
 

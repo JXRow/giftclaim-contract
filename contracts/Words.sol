@@ -1365,7 +1365,7 @@ contract Words is ERC721Enumerable, ReentrancyGuard, Ownable {
     address public feeTo;
 
     struct Info {
-        uint256 starNum;
+        uint256 value;
         string starIcon;
         string background;
         string icon;
@@ -1402,12 +1402,14 @@ contract Words is ERC721Enumerable, ReentrancyGuard, Ownable {
     }
     
     function mint(string memory starIcon, string memory background, string memory icon, string memory words, string memory author, string memory desc) public payable nonReentrant {
-        require(msg.value >= 10**18, 'need more fee');
-        payable(feeTo).transfer(msg.value);
+        require(minted < 10000, 'max supply is 10000');
+
+        if (msg.value > 0) {
+            payable(feeTo).transfer(msg.value);
+        }
         
         minted++;
-        uint256 starNum = msg.value / 10**18;
-        tokenIdToInfo[minted] = Info(starNum, starIcon, background, icon, words, author, desc);
+        tokenIdToInfo[minted] = Info(msg.value, starIcon, background, icon, words, author, desc);
         _safeMint(_msgSender(), minted);
     }
 
@@ -1416,9 +1418,10 @@ contract Words is ERC721Enumerable, ReentrancyGuard, Ownable {
 
         Info storage info = tokenIdToInfo[tokenId];
 
-        require(msg.value >= 10**18 * info.starNum, 'need more fee');
+        require(msg.value >= 10**18, 'need more fee');
         payable(feeTo).transfer(msg.value);
         
+        info.value += msg.value;
         info.words = words;
         info.author = author;
         info.desc = desc;

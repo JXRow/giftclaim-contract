@@ -132,7 +132,7 @@ library Base64 {
 interface IWords{
 
     function tokenIdToInfo(uint256 tokenId) external view returns (
-        uint256 starNum,
+        uint256 value,
         string memory starIcon,
         string memory background,
         string memory icon,
@@ -185,7 +185,7 @@ contract WordsURI {
 
     function tokenURI(uint256 tokenId) external view returns (string memory) {
         (
-            uint256 starNum,
+            uint256 value,
             string memory starIcon,
             string memory background,
             string memory icon,
@@ -202,6 +202,7 @@ contract WordsURI {
         parts[++i] = '<rect class="cls-1" width="400" height="600"/>';
         
         //icon
+        uint256 starNum = value / 10**18;
         parts[++i] = getIcon(icon, starNum);
 
         //star
@@ -238,8 +239,14 @@ contract WordsURI {
         return bytes(star);
     }
 
-    function getIcon(string memory icon, uint256 value) internal pure returns (bytes memory) {
-        uint256 size = 100 + value;
+    function getIcon(string memory icon, uint256 starNum) internal pure returns (bytes memory) {
+        uint256 size;
+        if (starNum == 0) {
+            size = 50;
+        } else {
+            size = 99 + starNum;
+        }
+        
         if (size > 300) {
             size = 300;
         }
